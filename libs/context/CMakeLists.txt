@@ -83,6 +83,11 @@ unset(_default_ext)
 ## Implementation
 
 set(_default_impl fcontext)
+if(WIN32)
+  set(_default_impl winfib)
+else()
+  set(_default_impl ucontext)
+endif()
 
 set(BOOST_CONTEXT_IMPLEMENTATION "${_default_impl}" CACHE STRING "Boost.Context implementation (fcontext, ucontext, winfib)")
 set_property(CACHE BOOST_CONTEXT_IMPLEMENTATION PROPERTY STRINGS fcontext ucontext winfib)
