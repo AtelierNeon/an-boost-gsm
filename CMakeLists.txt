@@ -19,6 +19,10 @@ list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/tools/cmake/include)
 
 option(BOOST_WITH_SHARED_LIBRARIES "Build shared version of the Boost libraries." OFF)
 option(BOOST_WITHOUT_APPS "Build Boost without apps." OFF)
+option(BOOST_WITHOUT_INSTALL_ALL "Build Boost without installing all artifacts." OFF)
+option(BOOST_WITHOUT_INSTALL_FILES "Build Boost without installing files." OFF)
+option(BOOST_WITHOUT_INSTALL_HEADERS "Build Boost without installing headers." OFF)
+option(BOOST_WITHOUT_INSTALL_LIBRARIES "Build Boost without installing libraries." OFF)
 
 if(BOOST_WITH_SHARED_LIBRARIES)
   set(BUILD_SHARED_LIBS ON)
