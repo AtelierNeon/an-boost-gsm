@@ -30,4 +30,8 @@ else()
   set(BUILD_SHARED_LIBS OFF)
 endif()
 
+if(UNIX)
+  set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+endif()
+
 include(BoostRoot)
