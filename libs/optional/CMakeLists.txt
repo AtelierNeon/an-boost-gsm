@@ -5,7 +5,7 @@
 # NOTE: CMake support for Boost.Optional is currently experimental at best
 #       and the interface is likely to change in the future
 
-cmake_minimum_required( VERSION 3.5 )
+cmake_minimum_required( VERSION 3.5...3.16 )
 project( BoostOptional )
 
 add_library( boost_optional INTERFACE )
