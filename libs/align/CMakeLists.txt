@@ -4,7 +4,7 @@
 # Distributed under the Boost Software License, Version 1.0.
 # (http://www.boost.org/LICENSE_1_0.txt)
 
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.5...3.16)
 
 project(BoostAlign LANGUAGES CXX)
 
