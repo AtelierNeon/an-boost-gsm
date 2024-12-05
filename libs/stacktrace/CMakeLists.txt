@@ -64,15 +64,24 @@ function(stacktrace_check var source incs libs defs)
 
 endfunction()
 
-stacktrace_check(BOOST_STACKTRACE_HAS_BACKTRACE has_backtrace.cpp "" "backtrace" "")
+if(BUILD_WITH_COMPILER_PRECHECK AND WIN32)
+  set(BOOST_STACKTRACE_HAS_BACKTRACE FALSE)
+else()
+  stacktrace_check(BOOST_STACKTRACE_HAS_BACKTRACE has_backtrace.cpp "" "backtrace" "")
+endif()
 
 set(_default_addr2line ON)
 if(WIN32 AND NOT CMAKE_CXX_PLATFORM_ID MATCHES "Cygwin")
   set(_default_addr2line OFF)
 endif()
 
-stacktrace_check(BOOST_STACKTRACE_HAS_WINDBG has_windbg.cpp "" "dbgeng;ole32" "")
-stacktrace_check(BOOST_STACKTRACE_HAS_WINDBG_CACHED has_windbg_cached.cpp "${CMAKE_CURRENT_SOURCE_DIR}/../config/include" "dbgeng;ole32" "")
+if(BUILD_WITH_COMPILER_PRECHECK AND WIN32)
+  set(BOOST_STACKTRACE_HAS_WINDBG TRUE)
+  set(BOOST_STACKTRACE_HAS_WINDBG_CACHED TRUE)
+else()
+  stacktrace_check(BOOST_STACKTRACE_HAS_WINDBG has_windbg.cpp "" "dbgeng;ole32" "")
+  stacktrace_check(BOOST_STACKTRACE_HAS_WINDBG_CACHED has_windbg_cached.cpp "${CMAKE_CURRENT_SOURCE_DIR}/../config/include" "dbgeng;ole32" "")
+endif()
 
 option(BOOST_STACKTRACE_ENABLE_NOOP "Boost.Stacktrace: build boost_stacktrace_noop" ON)
 option(BOOST_STACKTRACE_ENABLE_BACKTRACE "Boost.Stacktrace: build boost_stacktrace_backtrace" ${BOOST_STACKTRACE_HAS_BACKTRACE})

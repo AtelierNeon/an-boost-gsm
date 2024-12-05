@@ -3,7 +3,11 @@
 # (See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt)
 
 include(CheckCXXCompilerFlag)
-check_cxx_compiler_flag(-Wsuggest-override _BOOST_NOWIDE_SUGGEST_OVERRIDE_SUPPORTED)
+if(BUILD_WITH_COMPILER_PRECHECK AND WIN32)
+  set(_BOOST_NOWIDE_SUGGEST_OVERRIDE_SUPPORTED FALSE)
+else()
+  check_cxx_compiler_flag(-Wsuggest-override _BOOST_NOWIDE_SUGGEST_OVERRIDE_SUPPORTED)
+endif()
 
 add_library(boost_nowide_file_test_helpers STATIC file_test_helpers.cpp)
 target_link_libraries(boost_nowide_file_test_helpers PRIVATE PRIVATE Boost::nowide)

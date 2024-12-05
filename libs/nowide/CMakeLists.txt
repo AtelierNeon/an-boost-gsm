@@ -53,9 +53,17 @@ option(Boost_NOWIDE_WERROR "Treat warnings as errors" "${def_WERROR}")
 
 
 file(READ ${CMAKE_CURRENT_SOURCE_DIR}/config/check_lfs_support.cpp lfsSource)
-check_cxx_source_compiles("${lfsSource}" BOOST_NOWIDE_HAS_LFS)
+if(BUILD_WITH_COMPILER_PRECHECK AND WIN32)
+  set(BOOST_NOWIDE_HAS_LFS TRUE)
+else()
+  check_cxx_source_compiles("${lfsSource}" BOOST_NOWIDE_HAS_LFS)
+endif()
 file(READ ${CMAKE_CURRENT_SOURCE_DIR}/config/check_attribute_init_priority.cpp attributeInitPrioritySource)
-check_cxx_source_compiles("${attributeInitPrioritySource}" BOOST_NOWIDE_HAS_INIT_PRIORITY)
+if(BUILD_WITH_COMPILER_PRECHECK AND WIN32)
+  set(BOOST_NOWIDE_HAS_INIT_PRIORITY FALSE)
+else()
+  check_cxx_source_compiles("${attributeInitPrioritySource}" BOOST_NOWIDE_HAS_INIT_PRIORITY)
+endif()
 
 # Using glob here is ok as it is only for headers
 file(GLOB_RECURSE headers include/*.hpp)
